@@ -6,7 +6,6 @@ from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView
 
 
-
 class WelcomePageTemplateView(TemplateView):
     template_name = 'quiz/welcome.html'
 

@@ -11,7 +11,7 @@ class CarQuizForm(forms.ModelForm):
     car_type = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=[
-            ('suv', 'Suv'),
+            ('suv', 'suv'),
             ('combi', 'kombi'),
             ('cov', 'crossover'),
             ('hatchback', 'hatchback')
