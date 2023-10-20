@@ -10,13 +10,7 @@ class CarQuizForm(forms.ModelForm):
 
     car_type = forms.ChoiceField(
         widget=forms.RadioSelect,
-        choices=[
-            ('suv', 'suv'),
-            ('combi', 'kombi'),
-            ('cov', 'crossover'),
-            ('hatchback', 'hatchback')
-
-        ],
+        choices=CarModel.CAR_TYPE_CHOICES,
         label='Jakim rodzajem samochodu jeździsz obecnie?'
     )
 
@@ -44,7 +38,7 @@ class CarQuizForm(forms.ModelForm):
         label='Do jakiej kwoty chciałbyś kupić samochód?'
     )
 
-    preferences = forms.ChoiceField(
+    preference = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=CarModel.PREFERENCE_CHOICES,
         label='Na co zwrócisz uwagę przy wyborze kolejnego pojazdu?'
@@ -52,12 +46,7 @@ class CarQuizForm(forms.ModelForm):
 
     financing = forms.ChoiceField(
         widget=forms.RadioSelect,
-        choices=[
-            ('cash', 'gotówka/przelew'),
-            ('credit', 'kredyt'),
-            ('leasing', 'leasing'),
-            ('renting', 'najem')
-        ],
+        choices=CarModel.FINANCING_CHOICES,
         label='Jaką formę finansowania bierzesz pod uwagę?'
     )
 

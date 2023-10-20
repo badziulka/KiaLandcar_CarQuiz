@@ -2,13 +2,7 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    {{ form.car_type.label_tag }} {{ form.car_type }}
-    {{ form.person_count.label_tag }} {{ form.person_count }}
-    {{ form.engine_type.label_tag }} {{ form.engine_type }}
-    {{ form.road_type.label_tag }} {{ form.road_type }}
-    {{ form.price.label_tag }} {{ form.price }}
-    {{ form.preferences.label_tag }} {{ form.preferences }}
-    {{ form.financing.label_tag }} {{ form.financing }}
+    {{ form.as_p }}
     <button type="submit">Dalej</button>
 </form>
 {% endblock %}

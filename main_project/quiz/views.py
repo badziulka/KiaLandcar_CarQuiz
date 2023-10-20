@@ -21,28 +21,6 @@ class QuizCreateView(CreateView):
     template_name = 'quiz/quiz_form.html'
     success_url = '/result/'
 
-    def form_valid(self, form):
-        car_type = form.cleaned_data['car_type']
-        person_count = form.cleaned_data['person_count']
-        engine_type = form.cleaned_data['engine_type']
-        road_type = form.cleaned_data['road_type']
-        price = form.cleaned_data['price']
-        preferences = form.cleaned_data['preferences']
-        financing = form.cleaned_data['financing']
-
-
-        car_model = CarModel(
-            car_type=car_type,
-            person_count=person_count,
-            engine_type=engine_type,
-            road_type=road_type,
-            price=price,
-            preferences=preferences,
-            financing=financing
-        )
-        car_model.save()
-
-        return redirect('quiz-result')
 
 
 class ResultTemplateView(TemplateView):
