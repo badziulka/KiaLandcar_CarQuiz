@@ -22,14 +22,36 @@ class QuizCreateView(CreateView):
     success_url = '/result/'
 
 
-
 class ResultTemplateView(TemplateView):
     template_name = 'quiz/result.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Results'
+
+        answers = {
+            'car_type': self.request.POST.get('car_type'),
+            'person_count': self.request.POST.get('person_count'),
+            'engine_type': self.request.POST.get('engine_type'),
+            'road_type': self.request.POST.get('road_type'),
+            'price': self.request.POST.get('price'),
+            'preference': self.request.POST.get('preference'),
+            'financing': self.request.POST.get('financing'),
+        }
+
+        selected_cars = CarModel.get_car(answers)
+
+        context['selected_cars'] = selected_cars
+
+
         return context
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+
+
 #
 # def quiz(request):
 #     if request.method == 'POST':
