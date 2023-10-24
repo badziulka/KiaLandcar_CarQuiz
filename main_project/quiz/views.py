@@ -4,6 +4,11 @@ from .forms import CarQuizForm
 from .models import CarModel
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy
+from urllib.parse import urlencode
+
+
 
 
 class WelcomePageTemplateView(TemplateView):
@@ -19,40 +24,41 @@ class QuizCreateView(CreateView):
     model = CarModel
     form_class = CarQuizForm
     template_name = 'quiz/quiz_form.html'
-    success_url = '/result/'
 
-
-class ResultTemplateView(TemplateView):
-    template_name = 'quiz/result.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Results'
-
-        answers = {
-            'car_type': self.request.POST.get('car_type'),
+    def get_success_url(self):
+        params = {
+            # 'car_type': self.request.POST.get('car_type'),
             'person_count': self.request.POST.get('person_count'),
             'engine_type': self.request.POST.get('engine_type'),
             'road_type': self.request.POST.get('road_type'),
             'price': self.request.POST.get('price'),
             'preference': self.request.POST.get('preference'),
-            'financing': self.request.POST.get('financing'),
+            # 'financing': self.request.POST.get('financing'),
+        }
+        query_string = urlencode(params)
+        return reverse_lazy('quiz-result') + f'?{query_string}'
+
+
+class ResultDetailView(DetailView):
+    model = CarModel
+    template_name = 'quiz/result.html'
+    context_object_name = 'selected_cars'
+
+    def get_object(self):
+        answers = {
+            'person_count': self.request.GET.get('person_count'),
+            'engine_type': self.request.GET.get('engine_type'),
+            'road_type': self.request.GET.get('road_type'),
+            'price': self.request.GET.get('price'),
+            'preference': self.request.GET.get('preference'),
         }
 
         selected_cars = CarModel.get_car(answers)
+        return selected_cars
 
-        context['selected_cars'] = selected_cars
-
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
-
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data()
-        return self.render_to_response(context)
-
-
-
-#
 # def quiz(request):
 #     if request.method == 'POST':
 #         form = CarQuizForm(request.POST)

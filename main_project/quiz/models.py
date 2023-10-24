@@ -39,74 +39,67 @@ class CarModel(models.Model):
     def get_car(answers):
         conditions = {
             'picanto_stonic': (
-            (Q(person_count='person_count_1') | Q(person_count='person_count_2')) & Q(engine_type='engine_type_petrol')
-            & Q(road_type='road_type_city') & Q(price='price_100') & Q(preference='preference_simple')
-        ),
+                    Q(person_count__in=['person_count_1', 'person_count_2']) & Q(engine_type='engine_type_petrol')
+                    & Q(road_type='road_type_city') & Q(price='price_100') & Q(preference='preference_simple')
+            ),
 
-        'ceed' : (
-            (Q(person_count='person_count_2') | Q(person_count='person_count_3_4')) & (Q(engine_type='engine_type_petrol')
-            | Q(engine_type='engine_type_hybrid')) & (Q(road_type='road_type_mixed') | Q(road_type='road_type_route')
-            | Q(road_type='road_type_mostly_city')) & Q(price='price_100_150') & Q(preference='preference_simple')
-        ),
+            'ceed': (
+                     Q(person_count__in=['person_count_2', 'person_count_3_4'])
+                     & Q(engine_type__in=['engine_type_petrol','engine_type_hybrid'])
+                     & Q(road_type__in=['road_type_mixed', 'road_type_route', 'road_type_mostly_city'])
+                     & Q(price='price_100_150') & Q(preference='preference_simple')
+            ),
 
-        'sportage': (
-            Q(person_count='person_count_3_4') & (Q(engine_type='engine_type_hybrid') | Q(engine_type='engine_type_petrol'))
-            & (Q(road_type='road_type_mixed') | Q(road_type='road_type_route') | Q(road_type='road_type_mostly_city'))
-            & (Q(price='price_100_150') | Q(price='price_150_200')) & (Q(preference='preference_comfort')
-            | Q(preference='preference_mul_config'))
-        ),
+            'sportage': (
+                    Q(person_count='person_count_3_4') & Q(engine_type__in=['engine_type_hybrid', 'engine_type_petrol'])
+                    & Q(road_type__in=['road_type_mixed', 'road_type_route', 'road_type_mostly_city'])
+                    & Q(price__in=['price_100_150', 'price_150_200']) & Q(preference__in=['preference_comfort', 'preference_mul_config'])
+            ),
 
-        'proceed': (
-            Q(person_count='person_count_3_4') & Q(engine_type='engine_type_petrol')
-            & (Q(road_type='road_type_mixed') | Q(road_type='road_type_route') | Q(road_type='road_type_mostly_city'))
-            & Q(price='price_100_150') & Q(preference='preference_simple')
+            'proceed': (
+                    Q(person_count='person_count_3_4') & Q(engine_type='engine_type_petrol')
+                    & Q(road_type__in=['road_type_mixed', 'road_type_route', 'road_type_mostly_city'])
+                    & Q(price='price_100_150') & Q(preference='preference_simple')
+            ),
 
-        ),
+            'niro': (
+                    Q(person_count='person_count_3_4') & Q(engine_type='engine_type_hybrid') & Q(road_type='road_type_city')
+                    & Q(price='price_100_150') & Q(preference='preference_comfort')
+            ),
 
-        'niro': (
-            Q(person_count='person_count_3_4') & Q(engine_type='engine_type_hybrid') & Q(road_type='road_type_city')
-            & Q(price='price_100_150') & Q(preference='preference_comfort')
+            'niro_ev': (
+                    Q(person_count='person_count_3_4') & Q(engine_type='engine_type_electric') & Q(road_type='road_type_city')
+                    & Q(price='price_200') & Q(preference='preference_comfort')
+            ),
+            'ev6': (
+                    Q(person_count='person_count_3_4') & Q(engine_type='engine_type_electric')
+                    & Q(road_type__in=['road_type_mixed', 'road_type_mostly_city']) & Q(price='price_200')
+                    & Q(preference__in=['preference_comfort', 'preference_mul_config', 'preference_technology'])
+            ),
 
-        ),
+            'xceed': (
+                    Q(person_count='person_count_3_4') & Q(engine_type__in=['engine_type_petrol', 'engine_type_hybrid'])
+                    & Q(road_type__in=['road_type_mixed', 'road_type_route', 'road_type_mostly_city'])
+                    & Q(price='price_100_150') & Q(preference='preference_simple')
+            ),
 
-        'niro_ev': (
-            Q(person_count='person_count_3_4') & Q(engine_type='engine_type_electric') & Q(road_type='road_type_city')
-            & Q(price='price_200') & Q(preference='preference_comfort')
+            'sorento': (
+                    Q(person_count='person_count_5_7') & Q(engine_type__in=['engine_type_hybrid', 'engine_type_diesel'])
+                    & Q(road_type__in=['road_type_mixed', 'road_type_route', 'road_type_mostly_city'])
+                    & Q(price='price_200') & Q(preference__in=['preference_comfort', 'preference_mul_config', 'preference_technology'])
+            ),
 
-        ),
-
-        'ev6': (
-            Q(person_count='person_count_3_4') & Q(engine_type='engine_type_electric') & (Q(road_type='road_type_mixed')
-            | Q(road_type='road_type_mostly_city')) & Q(price='price_200') & (Q(preference='preference_comfort')
-            | Q(preference='preference_mul_config') | Q(preference='preference_technology'))
-
-        ),
-
-        'xceed': (
-            Q(person_count='person_count_3_4') & (Q(engine_type='engine_type_petrol') | Q(engine_type='engine_type_hybrid'))
-            & (Q(road_type='road_type_mixed') | Q(road_type='road_type_route') | Q(road_type='road_type_mostly_city'))
-            & Q(price='price_100_150') & Q(preference='preference_simple')
-
-        ),
-
-        'sorento': (
-            Q(person_count='person_count_5_7') & (Q(engine_type='engine_type_hybrid') | Q(engine_type='engine_type_diesel'))
-            & (Q(road_type='road_type_mixed') | Q(road_type='road_type_route') | Q(road_type='road_type_mostly_city'))
-            & Q(price='price_200') & (Q(preference='preference_comfort') | Q(preference='preference_mul_config')
-            | Q(preference='preference_technology'))
-        ),
-
-        'ev9': (
-            Q(person_count='person_count_5_7') & Q(engine_type='engine_type_electric') & (Q(road_type='road_type_mixed')
-            | Q(road_type='road_type_mostly_city')) & Q(price='price_200') & (Q(preference='preference_comfort')
-            | Q(preference='preference_mul_config') | Q(preference='preference_technology'))
-
-        )
+            'ev9': (
+                    Q(person_count='person_count_5_7') & Q(engine_type='engine_type_electric')
+                    & Q(road_type__in=['road_type_mixed', 'road_type_mostly_city']) & Q(price='price_200')
+                    & Q(preference__in=['preference_comfort', 'preference_mul_config', 'preference_technology'])
+            )
         }
 
         selected_cars = []
 
         for car_name, condition in conditions.items():
+            print(car_name, condition)
             if CarModel.objects.filter(condition).exists():
                 selected_cars.append(car_name)
 

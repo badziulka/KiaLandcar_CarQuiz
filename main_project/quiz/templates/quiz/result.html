@@ -1,9 +1,13 @@
 {% extends 'quiz/base.html' %}
 {% block content %}
-    <h2>Poniżej przedstawiamy dwa modele Kia, które najlepiej odpowiadają Twoim potrzebom:</h2>
-    <ul>
-        {% for car in selected_cars %}
-            <li>{{ car }}</li>
-        {% endfor %}
-    </ul>
+    {% if selected_cars %}
+        <h2>Poniżej przedstawiamy modele Kia, które najlepiej odpowiadają Twoim potrzebom:</h2>
+        <ul>
+            {% for car in selected_cars %}
+                <li>Model samochodu: {{ car }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nie znaleziono modeli samochodów spełniających kryteria.</p>
+    {% endif %}
 {% endblock %}
