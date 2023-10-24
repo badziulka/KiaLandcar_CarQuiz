@@ -37,6 +37,7 @@ class CarModel(models.Model):
 
     @staticmethod
     def get_car(answers):
+        selected_cars = []
         conditions = {
             'picanto_stonic': (
                     Q(person_count__in=['person_count_1', 'person_count_2']) & Q(engine_type='engine_type_petrol')
@@ -96,11 +97,8 @@ class CarModel(models.Model):
             )
         }
 
-        selected_cars = []
-
         for car_name, condition in conditions.items():
-            print(car_name, condition)
-            if CarModel.objects.filter(condition).exists():
+            if CarModel.objects.filter(condition, **answers).exists():
                 selected_cars.append(car_name)
 
         return selected_cars

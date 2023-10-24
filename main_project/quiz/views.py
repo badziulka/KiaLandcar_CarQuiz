@@ -7,6 +7,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from urllib.parse import urlencode
+from django.db.models import Q
+
 
 
 
@@ -59,6 +61,7 @@ class ResultDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
 # def quiz(request):
 #     if request.method == 'POST':
 #         form = CarQuizForm(request.POST)
