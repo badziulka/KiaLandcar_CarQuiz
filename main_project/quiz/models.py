@@ -4,27 +4,27 @@ from django.db.models import Q
 
 class CarModel(models.Model):
     class CarType(models.TextChoices):
-        suv = 'car_type_suv', 'suv'
-        combi = 'car_type_combi', 'kombi'
-        cov = 'car_type_cov', 'crossover'
-        hatchback = 'car_type_hatchback', 'hatchback'
+        SUV = 'car_type_suv', 'suv'
+        COMBI = 'car_type_combi', 'kombi'
+        COV = 'car_type_cov', 'crossover'
+        HATCHBACK = 'car_type_hatchback', 'hatchback'
 
-    car_type=models.CharField(
+    car_type = models.CharField(
         max_length=32,
         choices=CarType.choices,
-        default=CarType.suv
+        default=CarType.SUV
     )
 
     class PersonCount(models.TextChoices):
-        person_count_1 = 'person_count_1', 'Tylko ja'
-        person_count_2 = 'person_count_2', '2'
-        person_count_3_4 = 'person_count_3_4', '3-4'
-        person_count_5_7 = 'person_count_5_7', '5-7'
+        PERSON_COUNT_1 = 'person_count_1', 'Tylko ja'
+        PERSON_COUNT_2 = 'person_count_2', '2'
+        PERSON_COUNT_3_4 = 'person_count_3_4', '3-4'
+        PERSON_COUNT_5_7 = 'person_count_5_7', '5-7'
 
     person_count=models.CharField(
         max_length=32,
         choices=PersonCount.choices,
-        default=PersonCount.person_count_3_4
+        default=PersonCount.PERSON_COUNT_3_4
     )
 
     class EngineType(models.TextChoices):

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
-from .forms import CarQuizForm
+from .forms import CarQuizForm, CarQuizPageTwoForm
 from .models import CarModel
 from django.views.generic.edit import FormView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from urllib.parse import urlencode
@@ -27,6 +27,7 @@ class QuizCreateView(CreateView):
     form_class = CarQuizForm
     template_name = 'quiz/quiz_form.html'
 
+
     def get_success_url(self):
         # params = {
         #     # 'car_type': self.request.POST.get('car_type'),
@@ -38,7 +39,16 @@ class QuizCreateView(CreateView):
         #     # 'financing': self.request.POST.get('financing'),
         # }
         # query_string = urlencode(params)
+        return reverse_lazy('quiz-2', args=[self.object.id])# + f'?{query_string}'
+
+class QuizPageTwoView(UpdateView):
+    model = CarModel
+    form_class = CarQuizPageTwoForm
+    template_name = 'quiz/quiz_form.html'
+
+    def get_success_url(self):
         return reverse_lazy('quiz-result', args=[self.object.id])# + f'?{query_string}'
+
 
 
 class ResultDetailView(DetailView):
