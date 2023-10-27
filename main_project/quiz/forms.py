@@ -8,18 +8,69 @@ class CarQuizForm(forms.ModelForm):
         model = CarModel
         fields = ('car_type',)
         widgets = {
-            'car_type': forms.RadioSelect(attrs={'label': 'testowy label', 'choices': CarModel.CarType.choices})
+            'car_type': forms.RadioSelect(attrs={'choices': CarModel.CarType.choices})
         }
+        labels = {'car_type': 'Jakim rodzajem samochodu jeździsz obecnie?'}
+
 
 class CarQuizPageTwoForm(forms.ModelForm):
     class Meta:
         model = CarModel
         fields = ('person_count',)
         widgets = {
-            'person_count': forms.RadioSelect(attrs={'label': 'testowy label', 'choices': CarModel.PersonCount.choices})
+            'person_count': forms.RadioSelect(attrs={'choices': CarModel.PersonCount.choices})
         }
         labels = {'person_count': 'Ile osób jeździ najczęściej z tobą w samochodzie?'}
 
+
+class CarQuizPageThreeForm(forms.ModelForm):
+    class Meta:
+        model = CarModel
+        fields = ('engine_type',)
+        widgets = {
+            'engine_type': forms.RadioSelect(attrs={'choices': CarModel.EngineType.choices})
+        }
+        labels = {'engine_type': 'Jaki typ silnika chciałbyś mieć w swoim samochodzie?'}
+
+
+class CarQuizPageFourForm(forms.ModelForm):
+    class Meta:
+        model = CarModel
+        fields = ('road_type',)
+        widgets = {
+            'road_type': forms.RadioSelect(attrs={'choices': CarModel.RoadType.choices})
+        }
+        labels = {'road_type': 'Gdzie najwięcej jeździsz?'}
+
+
+class CarQuizPageFiveForm(forms.ModelForm):
+    class Meta:
+        model = CarModel
+        fields = ('price',)
+        widgets = {
+            'price': forms.RadioSelect(attrs={'choices': CarModel.Price.choices})
+        }
+        labels = {'price': 'Do jakiej kwoty chciałbyś kupić samochód?'}
+
+
+class CarQuizPageSixForm(forms.ModelForm):
+    class Meta:
+        model = CarModel
+        fields = ('preference',)
+        widgets = {
+            'preference': forms.RadioSelect(attrs={'choices': CarModel.Preference.choices})
+        }
+        labels = {'preference': 'Na co zwrócisz uwagę przy wyborze kolejnego pojazdu?'}
+
+
+class CarQuizPageSevenForm(forms.ModelForm):
+    class Meta:
+        model = CarModel
+        fields = ('financing',)
+        widgets = {
+            'financing': forms.RadioSelect(attrs={'choices': CarModel.Financing.choices})
+        }
+        labels = {'financing': 'Jaką formę finansowania bierzesz pod uwagę?'}
 
     # car_type = forms.ChoiceField(
     #     widget=forms.RadioSelect,
