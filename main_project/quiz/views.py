@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
-from .forms import CarQuizForm, CarQuizPageTwoForm, CarQuizPageThreeForm, CarQuizPageFourForm, CarQuizPageFiveForm, \
-    CarQuizPageSixForm, CarQuizPageSevenForm
+from .forms import CarQuizBaseForm, CarQuizPageOneForm, CarQuizPageTwoForm, CarQuizPageThreeForm, CarQuizPageFourForm, \
+    CarQuizPageFiveForm, CarQuizPageSixForm, CarQuizPageSevenForm
 from .models import CarModel
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView
@@ -9,9 +9,6 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from urllib.parse import urlencode
 from django.db.models import Q
-
-
-
 
 
 class WelcomePageTemplateView(TemplateView):
@@ -25,76 +22,134 @@ class WelcomePageTemplateView(TemplateView):
 
 class QuizCreateView(CreateView):
     model = CarModel
-    form_class = CarQuizForm
+    form_class = CarQuizPageOneForm
     template_name = 'quiz/quiz_form.html'
 
-
     def get_success_url(self):
-        # params = {
-        #     # 'car_type': self.request.POST.get('car_type'),
-        #     'person_count': self.request.POST.get('person_count'),
-        #     'engine_type': self.request.POST.get('engine_type'),
-        #     'road_type': self.request.POST.get('road_type'),
-        #     'price': self.request.POST.get('price'),
-        #     'preference': self.request.POST.get('preference'),
-        #     # 'financing': self.request.POST.get('financing'),
-        # }
-        # query_string = urlencode(params)
-        return reverse_lazy('quiz-2', args=[self.object.id])# + f'?{query_string}'
+        return reverse_lazy('quiz-2', args=[self.object.id])
 
 
-class QuizPageTwoView(UpdateView):
+class CarQuizBaseView(UpdateView):
     model = CarModel
+    template_name = 'quiz/quiz_form.html'
+    success_url = None
+
+
+class CarQuizPageTwoView(CarQuizBaseView):
     form_class = CarQuizPageTwoForm
-    template_name = 'quiz/quiz_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('quiz-3', args=[self.object.id])# + f'?{query_string}'
+        return reverse_lazy('quiz-3', args=[self.object.id])
 
 
-class QuizPageThreeView(UpdateView):
-    model = CarModel
+class CarQuizPageThreeView(CarQuizBaseView):
     form_class = CarQuizPageThreeForm
-    template_name = 'quiz/quiz_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('quiz-4', args=[self.object.id])# + f'?{query_string}'
+        return reverse_lazy('quiz-4', args=[self.object.id])
 
 
-class QuizPageFourView(UpdateView):
-    model = CarModel
+class CarQuizPageFourView(CarQuizBaseView):
     form_class = CarQuizPageFourForm
-    template_name = 'quiz/quiz_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('quiz-5', args=[self.object.id])# + f'?{query_string}'
+        return reverse_lazy('quiz-5', args=[self.object.id])
 
 
-class QuizPageFiveView(UpdateView):
-    model = CarModel
+class CarQuizPageFiveView(CarQuizBaseView):
     form_class = CarQuizPageFiveForm
-    template_name = 'quiz/quiz_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('quiz-6', args=[self.object.id])# + f'?{query_string}'
+        return reverse_lazy('quiz-6', args=[self.object.id])
 
 
-class QuizPageSixView(UpdateView):
-    model = CarModel
+class CarQuizPageSixView(CarQuizBaseView):
     form_class = CarQuizPageSixForm
-    template_name = 'quiz/quiz_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('quiz-7', args=[self.object.id])# + f'?{query_string}'
+        return reverse_lazy('quiz-7', args=[self.object.id])
 
 
-class QuizPageSevenView(UpdateView):
-    model = CarModel
+class CarQuizPageSevenView(CarQuizBaseView):
     form_class = CarQuizPageSevenForm
-    template_name = 'quiz/quiz_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('quiz-result', args=[self.object.id])# + f'?{query_string}'
+        return reverse_lazy('quiz-result', args=[self.object.id])
+
+
+
+# class QuizCreateView(CreateView):
+#     model = CarModel
+#     form_class = CarQuizForm
+#     template_name = 'quiz/quiz_form.html'
+#
+#
+#     def get_success_url(self):
+#         # params = {
+#         #     # 'car_type': self.request.POST.get('car_type'),
+#         #     'person_count': self.request.POST.get('person_count'),
+#         #     'engine_type': self.request.POST.get('engine_type'),
+#         #     'road_type': self.request.POST.get('road_type'),
+#         #     'price': self.request.POST.get('price'),
+#         #     'preference': self.request.POST.get('preference'),
+#         #     # 'financing': self.request.POST.get('financing'),
+#         # }
+#         # query_string = urlencode(params)
+#         return reverse_lazy('quiz-2', args=[self.object.id])# + f'?{query_string}'
+#
+#
+# class QuizPageTwoView(UpdateView):
+#     model = CarModel
+#     form_class = CarQuizPageTwoForm
+#     template_name = 'quiz/quiz_form.html'
+#
+#     def get_success_url(self):
+#         return reverse_lazy('quiz-3', args=[self.object.id])# + f'?{query_string}'
+#
+#
+# class QuizPageThreeView(UpdateView):
+#     model = CarModel
+#     form_class = CarQuizPageThreeForm
+#     template_name = 'quiz/quiz_form.html'
+#
+#     def get_success_url(self):
+#         return reverse_lazy('quiz-4', args=[self.object.id])# + f'?{query_string}'
+#
+#
+# class QuizPageFourView(UpdateView):
+#     model = CarModel
+#     form_class = CarQuizPageFourForm
+#     template_name = 'quiz/quiz_form.html'
+#
+#     def get_success_url(self):
+#         return reverse_lazy('quiz-5', args=[self.object.id])# + f'?{query_string}'
+#
+#
+# class QuizPageFiveView(UpdateView):
+#     model = CarModel
+#     form_class = CarQuizPageFiveForm
+#     template_name = 'quiz/quiz_form.html'
+#
+#     def get_success_url(self):
+#         return reverse_lazy('quiz-6', args=[self.object.id])# + f'?{query_string}'
+#
+#
+# class QuizPageSixView(UpdateView):
+#     model = CarModel
+#     form_class = CarQuizPageSixForm
+#     template_name = 'quiz/quiz_form.html'
+#
+#     def get_success_url(self):
+#         return reverse_lazy('quiz-7', args=[self.object.id])# + f'?{query_string}'
+#
+#
+# class QuizPageSevenView(UpdateView):
+#     model = CarModel
+#     form_class = CarQuizPageSevenForm
+#     template_name = 'quiz/quiz_form.html'
+#
+#     def get_success_url(self):
+#         return reverse_lazy('quiz-result', args=[self.object.id])# + f'?{query_string}'
 
 
 class ResultDetailView(DetailView):
