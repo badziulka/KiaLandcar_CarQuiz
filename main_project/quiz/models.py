@@ -227,13 +227,3 @@ class CarModel(models.Model):
 
 
 
-
-# # Create your models here.
-# Picanto(liczbaosob=1, 2, paliwo=benzyna, trasa=miasto, kwota=100tys)
-# Xceed()
-#
-# CarModel
-# name = 'Picanto'
-# paliwo = field
-# trasa =
-# kwota =
